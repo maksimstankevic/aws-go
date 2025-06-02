@@ -1,0 +1,2 @@
+# aws-go
+AWS library
