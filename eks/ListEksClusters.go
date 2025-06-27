@@ -33,6 +33,7 @@ func ListEKSClusters(sess *session.Session, clusters *[]string, ctx context.Cont
 		for {
 			listClustersOutput, err := eksSvc.ListClusters(listClustersInput)
 			if err != nil {
+				logging.Info("Failed to list clusters in region", "region", regionName, "error", err)
 				logging.Error(err, "failed to list clusters in region %s", regionName)
 				return err
 			}
