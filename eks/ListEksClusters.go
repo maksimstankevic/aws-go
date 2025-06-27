@@ -12,7 +12,7 @@ import (
 
 // listEKSClusters retrieves all EKS clusters across all AWS regions.
 
-func ListEKSClusters(sess *session.Session, clusters *[]string, ctx context.Context) error {
+func ListEKSClusters(sess *session.Session, clusters *[]string, ctx context.Context) {
 
 	logging := log.FromContext(ctx)
 
@@ -21,7 +21,7 @@ func ListEKSClusters(sess *session.Session, clusters *[]string, ctx context.Cont
 	regionsOutput, err := ec2Svc.DescribeRegions(&ec2.DescribeRegionsInput{})
 	if err != nil {
 		logging.Error(err, "failed to describe regions")
-		return err
+		return
 	}
 
 	// Iterate over all regions and list EKS clusters
@@ -45,6 +45,4 @@ func ListEKSClusters(sess *session.Session, clusters *[]string, ctx context.Cont
 			listClustersInput.NextToken = listClustersOutput.NextToken
 		}
 	}
-
-	return nil
 }
